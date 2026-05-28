@@ -1,0 +1,4 @@
+/* Global resets — imported in main.jsx */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
