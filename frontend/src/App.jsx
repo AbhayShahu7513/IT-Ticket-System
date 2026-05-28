@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+const API_BASE_URL = 'https://paradise-selling-tier-observation.trycloudflare.com';
 
 // Icon components (inline SVG – same as original)
 const Icon = ({ path, size = 18, color = 'currentColor', ...props }) => (
@@ -54,9 +55,9 @@ function App() {
     const fetchOptions = async () => {
       try {
         const [companiesRes, departmentsRes, categoriesRes] = await Promise.all([
-          axios.get('/api/companies/'),
-          axios.get('/api/departments/'),
-          axios.get('/api/categories/'),
+          axios.get(`${API_BASE_URL}/api/companies/`),
+          axios.get(`${API_BASE_URL}/api/departments/`),
+          axios.get(`${API_BASE_URL}/api/categories/`),
         ]);
 
         const companies = companiesRes.data.map(c => c.name);
@@ -143,7 +144,7 @@ function App() {
     if (imageFile) data.append('issue_image', imageFile);
 
     try {
-      const response = await axios.post('/api/tickets/create/', data, {
+      const response = await axios.post(`${API_BASE_URL}/api/tickets/create/`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setSuccessMsg('Ticket created successfully! Our support team will reach out shortly.');
